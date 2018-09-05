@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button, Icon } from 'react-materialize';
+import { Navbar, NavItem } from 'react-materialize';
 import { connect } from 'react-redux';
 import { logoutUser } from '../store/actions/authActions';
 import { withRouter, Link } from 'react-router-dom';
@@ -21,12 +21,17 @@ class NavbarReact extends Component {
     const unauthenticated = [
       {
         content: `Login`,
+
         iconName: 'person',
+
         page: '/login'
       },
+
       {
         content: `Sign Up`,
+
         iconName: 'person',
+
         page: '/signup'
       }
     ];
@@ -34,19 +39,27 @@ class NavbarReact extends Component {
     const authenticated = [
       {
         content: `Shop`,
+
         iconName: 'attach_money',
+
         page: '/shop'
       },
+
       {
         content: `Orders`,
+
         iconName: 'markunread_mailbox',
+
         page: '/orders'
       },
+
       {
         content: 'Logout',
+
         iconName: 'redo'
       }
     ];
+
     let navItems = (
       <div>
         <NavBarItem
@@ -56,6 +69,7 @@ class NavbarReact extends Component {
         >
           Home
         </NavBarItem>
+
         {unauthenticated.map(item => (
           <NavBarItem
             iconName={item.iconName}
@@ -68,6 +82,7 @@ class NavbarReact extends Component {
         ))}
       </div>
     );
+
     if (this.props.auth.isAuthenticated) {
       navItems = (
         <div>
@@ -85,17 +100,18 @@ class NavbarReact extends Component {
               {item.content ? item.content : null}
             </NavBarItem>
           ))}
+
           <NavItem onClick={() => this.props.history.push('/checkout')}>
             <NavBarItem
               iconName="shopping_cart"
               className={
                 this.props.order.notPurchased.length > 0
-                  ? 'z-depth-3 red accent-2'
+                  ? 'z-depth-3 red'
                   : 'z-depth-3 light-blue accent-2'
               }
               waves="light"
               large
-              left
+              left={this.props.order.notPurchased.length > 0 ? true : false}
             >
               {this.props.order.notPurchased.length > 0
                 ? this.props.order.notPurchased.length
@@ -105,6 +121,7 @@ class NavbarReact extends Component {
         </div>
       );
     }
+
     return (
       <Navbar
         className="amber accent-2"
@@ -112,6 +129,7 @@ class NavbarReact extends Component {
           <span
             style={{
               fontSize: '1.5em',
+
               color: '#000'
             }}
           >
@@ -119,7 +137,7 @@ class NavbarReact extends Component {
               <span role="img" aria-label="img">
                 🍺
               </span>{' '}
-              Bottled
+              <span style={{ fontWeight: 200 }}>Bottled</span>
             </Link>
           </span>
         }
@@ -134,16 +152,20 @@ class NavbarReact extends Component {
 
 NavbarReact.propTypes = {
   auth: PropTypes.object.isRequired,
+
   logoutUser: PropTypes.func.isRequired,
+
   order: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
+
   order: state.order
 });
 
 export default connect(
   mapStateToProps,
+
   { logoutUser }
 )(withRouter(NavbarReact));

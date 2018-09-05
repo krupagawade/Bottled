@@ -7,7 +7,6 @@ const Button = asyncComponent(() => import('./Button'));
 const NavBarItem = ({...props, onClick, iconName, children }) => (
   <NavItem onClick={onClick}>
     <Button large iconName={iconName} {...props}>
-      {children}
     </Button>
   </NavItem>
 );

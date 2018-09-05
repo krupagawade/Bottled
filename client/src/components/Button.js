@@ -7,6 +7,7 @@ const CustomButton = ({
   onClick,
   right,
   left,
+  center,
   large,
   type,
   className
@@ -21,7 +22,7 @@ const CustomButton = ({
         type={type}
       >
         {children}
-        <Icon right={right} left={left}>
+        <Icon right={right} center={center} left={left}>
           {iconName}
         </Icon>
       </Button>
